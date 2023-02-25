@@ -35,7 +35,7 @@ class ProductItem extends StatelessWidget {
         child: GestureDetector(
           onTap: () {
             Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => ProductScreenDetailScreen(title,imageUrl),
+              builder: (context) => ProductScreenDetailScreen(title, imageUrl),
             ));
           },
           child: Image.asset(
