@@ -1,18 +1,24 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-class Product {
+import 'package:flutter/material.dart';
+
+class Product with ChangeNotifier {
   final String id;
   final String title;
   final String description;
   final double price;
   final String imageUrl;
-  bool? isFavorite ;
+  bool isFavorite;
+
   Product({
     required this.id,
     required this.title,
     required this.description,
     required this.price,
     required this.imageUrl,
-     this.isFavorite,
+    this.isFavorite = false,
   });
-
+  void toggleFavouritesState() {
+    isFavorite = !isFavorite;
+    notifyListeners();
+  }
 }

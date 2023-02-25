@@ -1,11 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:provider/provider.dart';
 
-import '../models/product.dart';
+import '../providers/product.dart';
 import '../providers/product_provider.dart';
 import 'product_item.dart';
 
@@ -26,10 +24,12 @@ class ProductGrid extends StatelessWidget {
           mainAxisSpacing: 10,
         ),
 
-        itemBuilder: ((context, index) => ProductItem(
-              id: products[index].id,
-              title: products[index].title,
-              imageUrl: products[index].imageUrl,
+        itemBuilder: ((context, index) => ChangeNotifierProvider(
+          create:(c)=> products[index],
+          child: ProductItem(),
+              // id: products[index].id,
+              // title: products[index].title,
+              // imageUrl: products[index].imageUrl,
             )),
       );
   }
