@@ -35,21 +35,23 @@ class Products with ChangeNotifier {
   var _showFavoritesOnly = false;
 
   List<Product> get items {
-    if (_showFavoritesOnly) {
-      return _items.where((element) => element.isFavorite).toList();
-    }
+    // if (_showFavoritesOnly) {
+    //   return _items.where((element) => element.isFavorite).toList();
+    // }
     return [..._items];
   }
+ List<Product> get faviruteItems {
+  return _items.where((element) => element.isFavorite).toList();
+ }
+  // void showFavoritesOnly() {
+  //   _showFavoritesOnly = true;
+  //   notifyListeners();
+  // }
 
-  void showFavoritesOnly() {
-    _showFavoritesOnly = true;
-    notifyListeners();
-  }
-
-  void showAll() {
-    _showFavoritesOnly = false;
-    notifyListeners();
-  }
+  // void showAll() {
+  //   _showFavoritesOnly = false;
+  //   notifyListeners();
+  // }
 
   Product findById(String id) {
     return _items.firstWhere((element) => element.id == id);
