@@ -23,13 +23,21 @@ class ProductScreenDetailScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(LoadedProduct.title),
       ),
-      body: Column(
-        children: [
-          Image.asset(LoadedProduct.imageUrl),
-          const Center(
-            child: Text("product Detail PAge"),
-          ),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Image.asset(LoadedProduct.imageUrl),
+            Center(
+              child: Text("\$ ${LoadedProduct.price}"),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Center(
+              child: Text("\$ ${LoadedProduct.description}"),
+            ),
+          ],
+        ),
       ),
     );
   }
