@@ -63,32 +63,39 @@ class Products with ChangeNotifier {
   //   _showFavoritesOnly = false;
   //   notifyListeners();
   // }
-
-  Product findById(String id) {
+Product findById(String id) {
     return _items.firstWhere((element) => element.id == id);
   }
 
-  void addProduct(Product product) {
+  
+  Future<void > addProduct(Product product) async {
     const String url =
         "https://flutter-update2-808f2-default-rtdb.firebaseio.com/Products.json";
-    http.post(
-      Uri.parse(url),
-      body: json.encode({
-        'title': product.title,
-        'description': product.description,
-        'imageUrl': product.imageUrl,
-        'price': product.price,
-        'isFavorite': product.isFavorite
-      }),
-    );
-    final newProduct = Product(
-        id: DateTime.now().toString(),
-        title: product.title,
-        description: product.description,
-        price: product.price,
-        imageUrl: product.imageUrl);
-    _items.add(newProduct);
-    notifyListeners();
+   return http
+        .post(Uri.parse(url),
+            body: json.encode({
+              'title': product.title,
+              'description': product.description,
+              'imageUrl': product.imageUrl,
+              'price': product.price,
+              'isFavorite': product.isFavorite
+            }))
+        .then((response) {
+      print(json.decode(response.body));
+      final newProduct = Product(
+          id: DateTime.now().toString(),
+          title: product.title,
+          description: product.description,
+          price: product.price,
+          imageUrl: product.imageUrl);
+      id:
+      json.decode(response.body)['name'];
+      _items.add(newProduct);
+      notifyListeners();
+    }).catchError((error){
+print(error);
+throw error;
+    });
   }
 
   void updateProduct(String id, Product newProduct) {
