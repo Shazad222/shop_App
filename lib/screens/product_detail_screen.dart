@@ -26,7 +26,10 @@ class ProductScreenDetailScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Image.asset(LoadedProduct.imageUrl),
+           Image.network(
+                LoadedProduct.imageUrl,
+                fit: BoxFit.cover,
+              ),
             Center(
               child: Text("\$ ${LoadedProduct.price}"),
             ),
