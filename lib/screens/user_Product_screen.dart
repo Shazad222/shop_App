@@ -10,6 +10,10 @@ class UserProductScreen extends StatelessWidget {
   const UserProductScreen({super.key});
   static const routeName = '/user-product';
 
+  Future<void> _refreshProducts(BuildContext context) async {
+    await Provider.of<Products>(context, listen: false).fetchAndSetProduct();
+  }
+
   @override
   Widget build(BuildContext context) {
     final productData = Provider.of<Products>(context);
@@ -25,26 +29,29 @@ class UserProductScreen extends StatelessWidget {
         ],
       ),
       drawer: AppDrawer(),
-      body: Padding(
-        padding: EdgeInsets.all(8),
-        child: ListView.builder(
-          itemBuilder: (_, index) => userProductItem(
-            id: productData.items[index].id,
-            title: productData.items[index].title,
-            imageUrl: productData.items[index].imageUrl,
-          )
-          // {
-          //   final product = productData.items[index];
-          //   return ListTile(
-          //     leading: Image.network(product.imageUrl),
-          //     title: Text(product.title),
-          //     onTap: () {
-          //       // Handle the tap event for the product item
-          //     },
-          //   );
-          // },
-          ,
-          itemCount: productData.items.length,
+      body: RefreshIndicator(
+        onRefresh: () => _refreshProducts(context),
+        child: Padding(
+          padding: EdgeInsets.all(8),
+          child: ListView.builder(
+            itemBuilder: (_, index) => userProductItem(
+              id: productData.items[index].id,
+              title: productData.items[index].title,
+              imageUrl: productData.items[index].imageUrl,
+            )
+            // {
+            //   final product = productData.items[index];
+            //   return ListTile(
+            //     leading: Image.network(product.imageUrl),
+            //     title: Text(product.title),
+            //     onTap: () {
+            //       // Handle the tap event for the product item
+            //     },
+            //   );
+            // },
+            ,
+            itemCount: productData.items.length,
+          ),
         ),
       ),
     );
