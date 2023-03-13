@@ -130,15 +130,15 @@ class Products with ChangeNotifier {
     final productIndex = _items.indexWhere((element) => element.id == id);
 
     if (productIndex >= 0) {
-      // final  url =
-      //     "https://flutter-update2-808f2-default-rtdb.firebaseio.com/Products/$id.json";
-      // await http.patch(Uri.parse(url),
-      //     body: json.encode({
-      //       'title': newProduct.title,
-      //       'description': newProduct.description,
-      //       'imageUrl': newProduct.imageUrl,
-      //       'price': newProduct.price
-      //     }));
+      final  url =
+          "https://flutter-update2-808f2-default-rtdb.firebaseio.com/Products/$id.json";
+      await http.patch(Uri.parse(url),
+          body: json.encode({
+            'title': newProduct.title,
+            'description': newProduct.description,
+            'imageUrl': newProduct.imageUrl,
+            'price': newProduct.price
+          }));
       notifyListeners();
       _items[productIndex] = newProduct;
     } else {

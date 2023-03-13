@@ -97,11 +97,9 @@ Future<  void> _saveForm() async{
       _isLoading = true;
     });
     if (_editedProduct.id != "") {
-      Provider.of<Products>(context, listen: false)
+     await Provider.of<Products>(context, listen: false)
           .updateProduct(_editedProduct.id!, _editedProduct);
-      setState(() {
-        _isLoading = false;
-      });
+      
       Navigator.of(context).pop();
     } else {
       Provider.of<Products>(context, listen: false)
@@ -123,15 +121,18 @@ Future<  void> _saveForm() async{
         );
         
 
-
+// .then((_) {
+//         setState(() {
+//           _isLoading = false;
+//         });
+//         Navigator.of(context).pop();
+//       });
         
-      }).then((_) {
-        setState(() {
-          _isLoading = false;
-        });
-        Navigator.of(context).pop();
       });
     }
+    setState(() {
+        _isLoading = false;
+      });
    
   }
 
