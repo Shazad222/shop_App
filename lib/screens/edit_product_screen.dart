@@ -87,19 +87,19 @@ class _EditProductScreenState extends State<EditProductScreen> {
     }
   }
 
-Future<  void> _saveForm() async{
+  Future<void> _saveForm() async {
     final isValid = _form.currentState!.validate();
     if (!isValid) {
       return;
     }
     _form.currentState!.save();
+
     setState(() {
       _isLoading = true;
     });
     if (_editedProduct.id != "") {
-     await Provider.of<Products>(context, listen: false)
-          .updateProduct(_editedProduct.id!, _editedProduct);
-      
+      await Provider.of<Products>(context, listen: false)
+          .updateProduct(_editedProduct.id, _editedProduct);
       Navigator.of(context).pop();
     } else {
       Provider.of<Products>(context, listen: false)
@@ -119,7 +119,6 @@ Future<  void> _saveForm() async{
             ],
           ),
         );
-        
 
 // .then((_) {
 //         setState(() {
@@ -127,13 +126,11 @@ Future<  void> _saveForm() async{
 //         });
 //         Navigator.of(context).pop();
 //       });
-        
       });
     }
     setState(() {
-        _isLoading = false;
-      });
-   
+      _isLoading = false;
+    });
   }
 
   @override

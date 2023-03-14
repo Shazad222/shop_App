@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:f5/providers/product.dart';
 import 'package:flutter/cupertino.dart';
@@ -73,6 +74,9 @@ class Products with ChangeNotifier {
     try {
       final response = await http.get(Uri.parse(url));
       final extractedData = json.decode(response.body) as Map<String, dynamic>;
+      if (extractedData == null) {
+        return null;
+      }
       final List<Product> loadedProducts = [];
       extractedData.forEach((prodId, proData) {
         loadedProducts.add(Product(
@@ -130,7 +134,7 @@ class Products with ChangeNotifier {
     final productIndex = _items.indexWhere((element) => element.id == id);
 
     if (productIndex >= 0) {
-      final  url =
+      final url =
           "https://flutter-update2-808f2-default-rtdb.firebaseio.com/Products/$id.json";
       await http.patch(Uri.parse(url),
           body: json.encode({
@@ -145,4 +149,24 @@ class Products with ChangeNotifier {
       print("object");
     }
   }
+
+  Future<void> deleteProduct(String id) async {
+    final url =
+        "https://flutter-update2-808f2-default-rtdb.firebaseio.com/Products/$id.json";
+    final existingProductIndex =
+        _items.indexWhere((element) => element.id == id);
+    Product? existingProduct = _items[existingProductIndex];
+    _items.removeAt(existingProductIndex);
+    notifyListeners();
+
+    notifyListeners();
+    final response = await http.delete(Uri.parse(url));
+    if (response.statusCode >= 400) {
+      _items.insert(existingProductIndex, existingProduct);
+      notifyListeners();
+      throw HttpException("Could not Delete Product");
+    }
+    existingProduct = null;
+  }
+  // _items.removeWhere((element) => element.id == id);
 }

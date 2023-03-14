@@ -33,7 +33,7 @@ class ProductScreenDetailScreen extends StatelessWidget {
             Center(
               child: Text("\$ ${LoadedProduct.price}"),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Center(
