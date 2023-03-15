@@ -1,7 +1,8 @@
+import 'package:f5/providers/auth.dart';
 import 'package:f5/providers/cart.dart';
 import 'package:f5/providers/order.dart';
 import 'package:f5/screens/Order_screen.dart';
-import 'package:f5/screens/Products_overview_screen.dart';
+import 'package:f5/screens/auth-screen.dart';
 import 'package:f5/screens/edit_product_screen.dart';
 import 'package:f5/screens/user_Product_screen.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+          ChangeNotifierProvider(create: (ctx) => Auth()),
         ChangeNotifierProvider(create: (ctx) => Products()),
         // add more ChangeNotifierProviders here if needed
         ChangeNotifierProvider(create: (ctx) => Cart()),
@@ -36,7 +38,7 @@ class MyApp extends StatelessWidget {
           // fontFamily: 'Lato',
           primarySwatch: Colors.green,
         ),
-        home: ProductsOverviewScreen(),
+        home: AuthScreen(),
         routes: {
           ProductScreenDetailScreen.routName: (ctx) =>
               ProductScreenDetailScreen(),
